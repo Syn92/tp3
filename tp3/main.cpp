@@ -15,7 +15,7 @@ using namespace std;
 
 const int  NB_PRODUCTS = 15;
 
-/**
+/**saluuut
 *Répondez aux questions ici :
 * 1/
 * 2/
