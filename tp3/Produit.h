@@ -12,7 +12,6 @@
 #include <typeinfo>
 #include "Usager.h"
 #include "Fournisseur.h"
-using namespace std;
 class Fournisseur;
 
 enum TypeProduit { TypeProduitOrdinaire = 0, TypeProduitAuxEncheres = 1 };

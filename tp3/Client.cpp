@@ -8,6 +8,11 @@
 #include "Fournisseur.h"
 
 
+Client::Client(const string&  nom, const string& prenom, int identifiant, const string& codePostal, long date):Usager(nom,prenom,identifiant, codePostal)
+{
+	dateNaissance_ = date;
+	monPanier_ = nullptr;
+}
 
 Client::~Client()
 {
@@ -56,9 +61,13 @@ void Client::acheter(ProduitOrdinaire * prod)
 	if (monPanier_ == nullptr)
 		monPanier_ = new Panier(this->obtenirIdentifiant());
 	monPanier_->ajouter(prod);
-	// obtenir une note aléatoire
+	int nbrAlea = rand()%4;	// obtenir une note aléatoire
+
+							// faire la mise à jour de la satisfaction au fournisseur
+	prod->obtenirFournisseur().obtenirSatisfaction().niveaux_[nbrAlea]++;
 	
-	// faire la mise à jour de la satisfaction au fournisseur
+	
+	
 	
 }
 
@@ -72,14 +81,21 @@ void Client::livrerPanier()
 
 void Client::miserProduit(ProduitAuxEncheres* produitAuxEncheres, double montantMise) {
 	// à faire
-	
+	if (produitAuxEncheres->obtenirPrix()<montantMise)
+	{
+		produitAuxEncheres->modifierPrix(montantMise);
+		produitAuxEncheres->modifierIdentifiantClient(this->obtenirIdentifiant());
+		this->monPanier_->ajouter(produitAuxEncheres);
+	}
 }
 
 Client & Client::operator=(const Client & client)
 {
 	if (this != &client) {
-		Usager temp(*this);
-		temp = static_cast<Usager> (client);
+		this->modifierNom(client.obtenirNom());
+		this->modifierPrenom(client.obtenirPrenom());
+		this->modifierIdentifiant(client.obtenirIdentifiant());
+		this->modifierCodePostal(client.obtenirCodePostal());
 		dateNaissance_ = client.obtenirDateNaissance();
 		if (client.monPanier_ != nullptr) {
 			delete monPanier_;
@@ -97,6 +113,12 @@ Client & Client::operator=(const Client & client)
 
 ostream & operator<<(ostream & os, const Client & client)
 {
-	
-	// à faire
+	os <<"client :"<< static_cast<Usager>(client);
+	if (client.monPanier_ != nullptr) {
+		os << &client.monPanier_ << endl;
+	}
+	else
+		os << "Votre panier est vide ! " << endl;
+
+	return os;
 }

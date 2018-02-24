@@ -55,7 +55,12 @@ Fournisseur& Fournisseur::operator=(const Fournisseur &fournisseur) {
 		satisfaction_ = fournisseur.satisfaction_;
 		return *this;
 	}
-	 
-
-
+}
+ostream& operator<<(ostream &os, const Fournisseur &fournisseur) {
+	os << "fournisseur :" <<static_cast<Usager>(fournisseur) << "\t notes ";
+	for (int i = 0; i < NIVEAUX_SATISFACTION; i++)
+	{
+		os <<"\t" << i << ": " << fournisseur.obtenirSatisfaction().niveaux_[i] << endl;
+	}
+	return os;
 }

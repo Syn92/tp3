@@ -17,6 +17,7 @@ struct Satisfaction {
 #include "Produit.h"
 using namespace std;
 class Produit;
+
 class Fournisseur : public Usager
 {
 public:
@@ -32,7 +33,7 @@ public:
 	void enleverProduit(Produit* produit);	
 	Fournisseur& operator=(const Fournisseur& fournisseur);
 
-	friend ostream& operator<<(ostream & os, Fournisseur& fournisseur);
+	friend ostream& operator<<(ostream &os, const Fournisseur &fournisseur);
 
 private:
 	Satisfaction satisfaction_;
